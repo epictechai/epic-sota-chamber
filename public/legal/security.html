@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Security — Epic SOTA Chamber — 💯Epic Tech AI🔥™️</title>
+  <link rel="stylesheet" href="/legal/legal.css" />
+  <link rel="icon" href="/icon.jpg" />
+</head>
+<body>
+  <header>
+    <a class="brand" href="/">Epic SOTA Chamber</a>
+    <nav>
+      <a href="/legal/terms.html">Terms</a>
+      <a href="/legal/privacy.html">Privacy</a>
+      <a href="/legal/security.html">Security</a>
+    </nav>
+  </header>
+  <main>
+    <h1>Security</h1>
+    <p class="muted">💯Epic Tech AI🔥™️ · no hardcoded API keys in the Chamber source that ships</p>
+    <h2>BYOK or pay</h2>
+    <p>Provider keys are stored in <code>localStorage</code> on your machine, never in git, never as Wrangler plaintext. If a key header is present (≥12 chars), the job is <code>billed: byok</code> and no Chamber credit is taken. If not, the Gate session must exist and the user db must have enough credits or the API returns 402.</p>
+    <p>Generate calls send BYOK only as a request header. We do not persist it. Credit decrements are on your ChamberUser SQLite row, not on a shared pool.</p>
+    <h2>Session codes</h2>
+    <p>Email OTP is hashed (SHA-256) before storage. Raw codes are not written to Durable Object tables. Codes expire. Start is rate-limited per inbox.</p>
+    <h2>Payments</h2>
+    <p>Stripe Checkout uses a Worker <em>secret</em>, never a key in git. $0.99 = 10 credits, written only after we retrieve a <code>paid</code> Checkout session. Session ids are stored so a reload cannot double-credit.</p>
+    <h2>Transport</h2>
+    <p>HTTPS on chamber.epictechai.app. Security headers: nosniff, frame deny, referrer strict-origin. Session cookie: HttpOnly, Secure, SameSite=Lax.</p>
+    <h2>What this is not</h2>
+    <p>Not a pentest certificate. Not SOC 2. Not “unhackable.” Report abuse through the product; do not file fake “we are FDIC insured” claims — we are not a bank.</p>
+  </main>
+  <footer>© 2026 💯Epic Tech AI🔥™️</footer>
+</body>
+</html>

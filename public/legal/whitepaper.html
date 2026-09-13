@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Whitepaper — Epic SOTA Chamber — 💯Epic Tech AI🔥™️</title>
+  <link rel="stylesheet" href="/legal/legal.css" />
+  <link rel="icon" href="/icon.jpg" />
+</head>
+<body>
+  <header>
+    <a class="brand" href="/">Epic SOTA Chamber</a>
+    <nav>
+      <a href="/legal/terms.html">Terms</a>
+      <a href="/legal/whitepaper.html">Whitepaper</a>
+      <a href="/llms.txt">llms.txt</a>
+    </nav>
+  </header>
+  <main>
+    <h1>Epic SOTA Chamber</h1>
+    <p class="muted">Whitepaper v1 · 2026-09-12 · 💯Epic Tech AI🔥™️ · Not a token sale · Not Harness, Super App, Crew, AIgent, Bot OS, or Railway Epic OS</p>
+    <h2>1. Problem</h2>
+    <p>Most “AI studios” either wrap someone else’s dashboard or hide the keys in the server and bill you twice. Creators need a graph they own, media that is actually the media (stills, video+audio, voice, music), a stitch to a final, and a way for other agents to see the surface without scraping a login wall.</p>
+    <h2>2. Product</h2>
+    <p>Chamber is a capability atelier. Make flows drop generators. Cyan OUT wires to magenta IN. Libraries keep timestamped takes. Stitch muxes picture and sound. ChamberAgent is a Durable Object on Cloudflare Workers AI (GLM + Flux by default).</p>
+    <h2>2b. Per-user SOTA db</h2>
+    <p>After email + code, each inbox gets its own Cloudflare Durable Object SQLite database (graphs, library index, job log, credits). Media blobs stay on the device. BYOK keys never go in that db.</p>
+    <h2>3. Trust model</h2>
+    <p>BYOK or pay: paste a vendor key and that job is on your bill. No key means sign-in plus Chamber credits ($0.99 = 10; Still/Voice/Music 1, Motion 3, Stitch 2, Pack 5). Keys never sit in the user db. Credits are a meter, not a withdrawable balance. Email + code opens the db. Stripe Checkout is the only card path.</p>
+    <h2>4. Ecosystem</h2>
+    <p>Other agents should read <code>/llms.txt</code>, <code>/.well-known/agent.json</code>, and <code>GET /api/v1/health</code>. Caps are listed at <code>/api/v1/caps</code>. Protocol 1. No iframe of sibling Epic products.</p>
+    <h2>5. Economics</h2>
+    <p>Platform quotas on Workers AI are real. Long video is reels, not a silent 480-minute lie. Hosted jobs without BYOK debit the user db. BYOK spend never hits Epic Tech’s vendor bill. Other agents should send <code>x-epic-key</code> (or sit behind a signed-in cookie with credits) or they get 402.</p>
+    <h2>6. Brand</h2>
+    <p>Cyan <code>#00f3ff</code>, magenta <code>#ff00aa</code>, black <code>#0a0a0a</code>, 💯Epic Tech AI🔥™️ on every public page. Chamber is a separate product with its own Worker and host.</p>
+  </main>
+  <footer>© 2026 💯Epic Tech AI🔥™️ · chamber.epictechai.app</footer>
+</body>
+</html>

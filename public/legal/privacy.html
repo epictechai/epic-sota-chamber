@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy — Epic SOTA Chamber — 💯Epic Tech AI🔥™️</title>
+  <link rel="stylesheet" href="/legal/legal.css" />
+  <link rel="icon" href="/icon.jpg" />
+</head>
+<body>
+  <header>
+    <a class="brand" href="/">Epic SOTA Chamber</a>
+    <nav>
+      <a href="/legal/terms.html">Terms</a>
+      <a href="/legal/privacy.html">Privacy</a>
+      <a href="/legal/aup.html">AUP</a>
+      <a href="/legal/license.html">License</a>
+      <a href="/legal/security.html">Security</a>
+      <a href="/legal/whitepaper.html">Whitepaper</a>
+    </nav>
+  </header>
+  <main>
+    <h1>Privacy Notice</h1>
+    <p class="muted">Effective 2026-09-12 · 💯Epic Tech AI🔥™️</p>
+    <h2>What we collect</h2>
+    <ul>
+      <li>Email, if you request a session code.</li>
+      <li>Hashed one-time codes and session tokens (not the raw code after hash).</li>
+      <li>Job metadata on the Chamber agent (cap name, timing, success) — not your BYOK keys.</li>
+      <li>Payment email/customer id and credit balance if you check out with Stripe. We store Stripe session ids so a refresh cannot mint credits twice.</li>
+      <li>Standard request logs (IP, path) on Cloudflare.</li>
+    </ul>
+    <h2>What we do not collect</h2>
+    <ul>
+      <li>API keys stored in our database. BYOK keys live in your browser. They are sent only as a one-shot header on Generate. No BYOK means we debit credits instead — we still do not keep a vendor key of yours.</li>
+      <li>Card PAN/CVC (Stripe handles that).</li>
+      <li>A hidden advertising profile. Chamber is not an ad network.</li>
+    </ul>
+    <h2>Why</h2>
+    <p>Operate the product, resume your session, stop abuse, complete a payment you started, and meet the law.</p>
+    <h2>Sharing</h2>
+    <p>Cloudflare (hosting, Workers AI). Stripe (if you pay). Your chosen model vendor (if you BYOK). We do not sell personal information.</p>
+    <h2>Retention</h2>
+    <p>OTP records expire in minutes. Sessions expire. You can log out. Browser libraries are on your device until you clear site data.</p>
+    <h2>Rights</h2>
+    <p>Depending on where you live you may have access, delete, and opt-out rights. Contact via the Chamber account panel. California residents: we do not sell or share personal information as those words are used in the CPRA.</p>
+  </main>
+  <footer>© 2026 💯Epic Tech AI🔥™️</footer>
+</body>
+</html>
