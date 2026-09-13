@@ -1,0 +1,38 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "epic-sota-chamber",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-09-12",
+  "workers_dev": true,
+  "preview_urls": true,
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "html_handling": "none",
+    "not_found_handling": "404-page"
+  },
+  "ai": {
+    "binding": "AI"
+  },
+  "send_email": [
+    {
+      "name": "EMAIL"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      { "name": "CHAMBER", "class_name": "ChamberAgent" },
+      { "name": "GATE", "class_name": "ChamberGate" },
+      { "name": "USERS", "class_name": "ChamberUser" }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["ChamberAgent", "ChamberGate", "ChamberUser"]
+    }
+  ]
+}

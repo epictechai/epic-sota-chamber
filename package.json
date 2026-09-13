@@ -1,0 +1,20 @@
+{
+  "name": "epic-sota-chamber",
+  "version": "1.6.0",
+  "private": true,
+  "description": "Epic SOTA Chamber — capability atelier for 💯Epic Tech AI🔥™️. Cloudflare Workers + Durable Objects + Workers AI.",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --local --ip 0.0.0.0 --port 43147",
+    "start": "wrangler dev --local --ip 0.0.0.0 --port 43147",
+    "deploy": "wrangler deploy",
+    "test": "node --test test/*.test.js",
+    "typecheck": "node --check src/lib.js && node --check src/gate.js && node --check src/user-db.js && node --check src/agent.js && node --check src/worker.js"
+  },
+  "devDependencies": {
+    "wrangler": "^4.131.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
