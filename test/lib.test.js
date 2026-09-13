@@ -13,6 +13,9 @@ import {
   COST,
   CAPS,
   PRODUCT,
+  VENDOR_TIMEOUT_MS,
+  STRIPE_TIMEOUT_MS,
+  vendorFetch,
   assetAlias,
   normEmail,
   maskEmail,
@@ -27,6 +30,34 @@ describe("product", () => {
     assert.equal(PRODUCT.os, false);
     assert.equal(PRODUCT.sibling, false);
     assert.equal(CAPS.length, 18);
+    assert.equal(PRODUCT.version, "1.6.1");
+  });
+});
+
+describe("vendorFetch", () => {
+  it("attaches AbortSignal.timeout so hung BYOK vendors fail over", () => {
+    const orig = AbortSignal.timeout;
+    let ms;
+    AbortSignal.timeout = (n) => {
+      ms = n;
+      return orig(n);
+    };
+    try {
+      vendorFetch("https://example.com/", { method: "GET" }).catch(() => {});
+      assert.equal(ms, VENDOR_TIMEOUT_MS);
+      vendorFetch("https://api.stripe.com/v1/checkout/sessions", { method: "POST" }, STRIPE_TIMEOUT_MS).catch(() => {});
+      assert.equal(ms, STRIPE_TIMEOUT_MS);
+    } finally {
+      AbortSignal.timeout = orig;
+    }
+  });
+  it("honors an already-aborted signal", async () => {
+    const ac = new AbortController();
+    ac.abort();
+    await assert.rejects(
+      () => vendorFetch("https://api.x.ai/v1/chat/completions", { method: "POST", signal: ac.signal }),
+      (err) => err?.name === "AbortError" || err?.name === "TimeoutError",
+    );
   });
 });
 
@@ -63,7 +94,7 @@ describe("llmText", () => {
     assert.equal(llmText({ response: "hi" }), "hi");
     assert.equal(llmText({ choices: [{ message: { content: "yo" } }] }), "yo");
     assert.equal(llmText({ content: [{ text: "a" }, { text: "b" }] }), "ab");
-    assert.equal(llmText({ candidates: [{ content: { parts: [{ text: "g" }] } }] }), "g");
+    assert.equal(llmText({ candidates: [{ content: { parts: [{ text: "g" } }] } }), "g");
     assert.equal(llmText(null), "");
   });
 });

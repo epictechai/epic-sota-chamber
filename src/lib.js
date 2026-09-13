@@ -3,11 +3,18 @@ export const PRODUCT = {
   product: "epic-sota-chamber",
   name: "Epic SOTA Chamber",
   brand: "💯Epic Tech AI🔥™️",
-  version: "1.6.0",
+  version: "1.6.1",
   protocol: 1,
   os: false,
   sibling: false,
 };
+
+export const VENDOR_TIMEOUT_MS = 8000;
+export const STRIPE_TIMEOUT_MS = 15000;
+
+export function vendorFetch(url, init = {}, ms = VENDOR_TIMEOUT_MS) {
+  return fetch(url, { ...init, signal: init.signal || AbortSignal.timeout(ms) });
+}
 
 export const MODEL_LLM = "@cf/zai-org/glm-4.7-flash";
 export const MODEL_IMAGE = "@cf/black-forest-labs/flux-1-schnell";
@@ -280,7 +287,7 @@ export async function llm(env, user, keys = {}) {
   async function vendorText(part) {
     if (keys.xai) {
       try {
-        const res = await fetch("https://api.x.ai/v1/chat/completions", {
+        const res = await vendorFetch("https://api.x.ai/v1/chat/completions", {
           method: "POST",
           headers: { authorization: "Bearer " + keys.xai, "content-type": "application/json" },
           body: JSON.stringify({
@@ -302,7 +309,7 @@ export async function llm(env, user, keys = {}) {
     }
     if (keys.openai) {
       try {
-        const res = await fetch("https://api.openai.com/v1/chat/completions", {
+        const res = await vendorFetch("https://api.openai.com/v1/chat/completions", {
           method: "POST",
           headers: { authorization: "Bearer " + keys.openai, "content-type": "application/json" },
           body: JSON.stringify({
@@ -324,7 +331,7 @@ export async function llm(env, user, keys = {}) {
     }
     if (keys.anthropic) {
       try {
-        const res = await fetch("https://api.anthropic.com/v1/messages", {
+        const res = await vendorFetch("https://api.anthropic.com/v1/messages", {
           method: "POST",
           headers: {
             "x-api-key": keys.anthropic,
@@ -347,7 +354,7 @@ export async function llm(env, user, keys = {}) {
     }
     if (keys.google) {
       try {
-        const res = await fetch(
+        const res = await vendorFetch(
           "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" +
             encodeURIComponent(keys.google),
           {
@@ -413,7 +420,7 @@ export async function still(env, prompt, keys = {}) {
   const p = (prompt || "void black chamber, cyan hex, magenta spark, no text").slice(0, 2048);
   if (keys.xai) {
     try {
-      const res = await fetch("https://api.x.ai/v1/images/generations", {
+      const res = await vendorFetch("https://api.x.ai/v1/images/generations", {
         method: "POST",
         headers: { authorization: "Bearer " + keys.xai, "content-type": "application/json" },
         body: JSON.stringify({ model: "grok-imagine-image", prompt: p, n: 1 }),
@@ -431,7 +438,7 @@ export async function still(env, prompt, keys = {}) {
   if (keys.openai) {
     for (const model of ["gpt-image-1", "dall-e-3"]) {
       try {
-        const res = await fetch("https://api.openai.com/v1/images/generations", {
+        const res = await vendorFetch("https://api.openai.com/v1/images/generations", {
           method: "POST",
           headers: { authorization: "Bearer " + keys.openai, "content-type": "application/json" },
           body: JSON.stringify({ model, prompt: p, n: 1, size: "1024x1024" }),
@@ -449,7 +456,7 @@ export async function still(env, prompt, keys = {}) {
   }
   if (keys.google) {
     try {
-      const res = await fetch(
+      const res = await vendorFetch(
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-preview-image-generation:generateContent?key=" +
           encodeURIComponent(keys.google),
         {
@@ -492,7 +499,7 @@ export async function speak(env, text, keys = {}) {
   const spoken = String(text || "Epic SOTA Chamber. Cyan cut. Magenta sting.").slice(0, 500);
   if (keys.xai) {
     try {
-      const res = await fetch("https://api.x.ai/v1/tts", {
+      const res = await vendorFetch("https://api.x.ai/v1/tts", {
         method: "POST",
         headers: { authorization: "Bearer " + keys.xai, "content-type": "application/json" },
         body: JSON.stringify({ model: "grok-voice", voice: "eve", input: spoken }),
@@ -507,7 +514,7 @@ export async function speak(env, text, keys = {}) {
   }
   if (keys.openai) {
     try {
-      const res = await fetch("https://api.openai.com/v1/audio/speech", {
+      const res = await vendorFetch("https://api.openai.com/v1/audio/speech", {
         method: "POST",
         headers: { authorization: "Bearer " + keys.openai, "content-type": "application/json" },
         body: JSON.stringify({ model: "tts-1", voice: "nova", input: spoken }),
@@ -557,14 +564,18 @@ export async function stripeCheckout(env, origin, email) {
     body.set("client_reference_id", email);
     body.set("customer_email", email);
   }
-  const res = await fetch("https://api.stripe.com/v1/checkout/sessions", {
-    method: "POST",
-    headers: {
-      authorization: "Bearer " + env.STRIPE_SECRET_KEY,
-      "content-type": "application/x-www-form-urlencoded",
+  const res = await vendorFetch(
+    "https://api.stripe.com/v1/checkout/sessions",
+    {
+      method: "POST",
+      headers: {
+        authorization: "Bearer " + env.STRIPE_SECRET_KEY,
+        "content-type": "application/x-www-form-urlencoded",
+      },
+      body,
     },
-    body,
-  });
+    STRIPE_TIMEOUT_MS,
+  );
   const data = await res.json().catch(() => ({}));
   if (!res.ok) return { ok: false, configured: true, error: data.error?.message || "Stripe checkout failed" };
   return { ok: true, url: data.url, id: data.id };

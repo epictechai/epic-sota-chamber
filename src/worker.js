@@ -17,6 +17,8 @@ import {
   billCap,
   stripeCheckout,
   assetAlias,
+  vendorFetch,
+  STRIPE_TIMEOUT_MS,
 } from "./lib.js";
 
 export { ChamberAgent, ChamberGate, ChamberUser };
@@ -128,9 +130,13 @@ export default {
       }
       const sid = String(body.session_id || url.searchParams.get("session_id") || "");
       if (!sid) return json({ ok: false, error: "missing session_id" }, 400);
-      const res = await fetch("https://api.stripe.com/v1/checkout/sessions/" + encodeURIComponent(sid), {
-        headers: { authorization: "Bearer " + env.STRIPE_SECRET_KEY },
-      });
+      const res = await vendorFetch(
+        "https://api.stripe.com/v1/checkout/sessions/" + encodeURIComponent(sid),
+        {
+          headers: { authorization: "Bearer " + env.STRIPE_SECRET_KEY },
+        },
+        STRIPE_TIMEOUT_MS,
+      );
       const ses = await res.json().catch(() => ({}));
       if (!res.ok || ses.payment_status !== "paid") {
         return json({ ok: false, error: "Payment not complete." }, 402);

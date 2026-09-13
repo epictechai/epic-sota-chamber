@@ -12,6 +12,7 @@ import {
   still,
   speak,
   publicHttps,
+  vendorFetch,
 } from "./lib.js";
 
 export class ChamberAgent extends DurableObject {
@@ -64,7 +65,7 @@ export class ChamberAgent extends DurableObject {
     if (kind === "video" || cap === "video") {
       if (keys.xai) {
         try {
-          const res = await fetch("https://api.x.ai/v1/videos/generations", {
+          const res = await vendorFetch("https://api.x.ai/v1/videos/generations", {
             method: "POST",
             headers: { authorization: "Bearer " + keys.xai, "content-type": "application/json" },
             body: JSON.stringify({ model: "grok-imagine-video", prompt: ask.slice(0, 2000), duration: 6 }),
@@ -130,7 +131,7 @@ export class ChamberAgent extends DurableObject {
         );
         return { engine: "workers-ai", url: "", text: got2.text, markdown: got2.text, model: got2.model, soft: true };
       }
-      const res = await fetch(url, { redirect: "follow", headers: { accept: "text/html,text/plain,application/json" } });
+      const res = await vendorFetch(url, { redirect: "follow", headers: { accept: "text/html,text/plain,application/json" } });
       const raw = await res.text();
       const text = raw
         .replace(/<script[\s\S]*?<\/script>/gi, " ")
