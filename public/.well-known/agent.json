@@ -1,0 +1,41 @@
+{
+  "name": "Epic SOTA Chamber",
+  "brand": "💯Epic Tech AI🔥™️",
+  "description": "Capability atelier. BYOK or pay-as-you-go credits. Email session codes. Per-user SOTA db. Stripe $0.99 = 10 credits.",
+  "url": "https://chamber.epictechai.app/",
+  "version": "1.6.0",
+  "protocol": 1,
+  "os": false,
+  "sibling": false,
+  "byok_or_pay": true,
+  "hardcoded_keys": false,
+  "costs": {
+    "imagine": 1,
+    "voice": 1,
+    "music": 1,
+    "video": 3,
+    "stitch": 2,
+    "media": 5,
+    "usd_micro": 0.99,
+    "credits_per_micro": 10
+  },
+  "endpoints": {
+    "health": "/api/v1/health",
+    "caps": "/api/v1/caps",
+    "run": "/api/v1/run",
+    "auth_start": "/api/v1/auth/start",
+    "auth_verify": "/api/v1/auth/verify",
+    "checkout": "/api/v1/billing/checkout",
+    "confirm": "/api/v1/billing/confirm",
+    "spend": "/api/v1/billing/spend",
+    "db": "/api/v1/db"
+  },
+  "legal": [
+    "/legal/terms.html",
+    "/legal/privacy.html",
+    "/legal/aup.html",
+    "/legal/license.html",
+    "/legal/whitepaper.html",
+    "/legal/security.html"
+  ]
+}

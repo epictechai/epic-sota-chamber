@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="color-scheme" content="dark" />
+    <title>Epic SOTA Chamber — 💯Epic Tech AI🔥™️</title>
+    <meta name="description" content="Epic SOTA Chamber. A capability atelier from 💯Epic Tech AI🔥™️. BYOK or pay. Not a desktop clone." />
+    <link rel="icon" href="/icon.jpg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/chamber.css?v=18" />
+  </head>
+  <body>
+    <div id="boot" class="boot">
+      <img src="/icon.jpg" alt="" width="84" height="84" />
+      <h1>Epic SOTA Chamber</h1>
+      <p>💯Epic Tech AI🔥™️ · protocol 1</p>
+      <div class="bar"><i></i></div>
+    </div>
+
+    <div id="app" class="app hidden">
+      <header class="top">
+        <button type="button" id="brand" class="brand" title="Chamber">
+          <img src="/icon.jpg" alt="" width="28" height="28" />
+          <span>SOTA Chamber</span>
+        </button>
+        <input id="title" class="title" value="Untitled weave" maxlength="80" />
+        <span class="grow"></span>
+        <button type="button" id="run" class="go">Run weave</button>
+        <button type="button" id="spot-btn" class="ghost">Caps</button>
+        <button type="button" id="settings-btn" class="ghost">Account</button>
+        <span id="pulse" class="pulse">…</span>
+      </header>
+
+      <aside id="rail" class="rail" aria-label="Capabilities"></aside>
+      <div id="stage" class="stage">
+        <canvas id="field"></canvas>
+        <div id="hint" class="hint">MAKE drops a generator. Type the ask on the right. Generate. Cyan OUT still feeds magenta IN if you wire more nodes.</div>
+        <div id="nodes"></div>
+        <svg id="wires" class="wires"></svg>
+      </div>
+      <aside id="inspect" class="inspect">
+        <h2 id="ins-title">Inspector</h2>
+        <p id="ins-meta" class="muted">Drop a Make flow. Type the ask. Generate.</p>
+        <div id="ins-body"></div>
+      </aside>
+      <section id="libs" class="libs" aria-label="SOTA media libraries">
+        <div class="lib" data-lane="imagine"><h4>Still</h4><div class="lib-list" id="lib-imagine"></div></div>
+        <div class="lib" data-lane="video"><h4>Motion</h4><div class="lib-list" id="lib-video"></div></div>
+        <div class="lib" data-lane="voice"><h4>Voice</h4><div class="lib-list" id="lib-voice"></div></div>
+        <div class="lib" data-lane="music"><h4>Music</h4><div class="lib-list" id="lib-music"></div></div>
+        <div class="lib" data-lane="pack"><h4>Pack</h4><div class="lib-list" id="lib-pack"></div></div>
+      </section>
+      <footer class="log" id="log"></footer>
+    </div>
+
+    <div id="onboard" class="modal hidden">
+      <div class="sheet sheet-wide">
+        <h2>Welcome to Epic SOTA Chamber</h2>
+        <p class="muted">💯Epic Tech AI🔥™️ · three taps and you are generating</p>
+        <ol class="onboard-steps">
+          <li><b>Make</b> on the left is Still, Motion, Voice, Music, Pack, Stitch.</li>
+          <li><b>Generate</b> on the right runs it. Libraries at the bottom keep the takes.</li>
+          <li><b>BYOK or pay.</b> Paste your vendor keys (free on our bill) or sign in and buy $0.99 / 10 credits. Each Still/Voice/Music is 1 credit, Motion 3, Stitch 2, Pack 5.</li>
+        </ol>
+        <label>Email for your db (optional)</label>
+        <input id="on-email" type="email" placeholder="you@domain.com" autocomplete="username" />
+        <div class="row">
+          <button type="button" id="on-send">Email me a code</button>
+          <button type="button" id="on-skip" class="ghost">Skip — try now</button>
+        </div>
+        <label>Code</label>
+        <input id="on-code" inputmode="numeric" maxlength="6" placeholder="6 digits" autocomplete="one-time-code" />
+        <div class="row">
+          <button type="button" id="on-go">Open my SOTA db</button>
+        </div>
+        <p id="on-msg" class="muted"></p>
+        <p class="muted"><a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a> · No keys in our repo · Workers AI works with none of yours</p>
+      </div>
+    </div>
+
+    <div id="spot" class="spot hidden">
+      <input id="spot-q" type="search" placeholder="Drop a capability, run, export…" autocomplete="off" />
+      <ul id="spot-list"></ul>
+    </div>
+
+    <div id="modal" class="modal hidden">
+      <div class="sheet sheet-wide">
+        <h2>Account · 💯Epic Tech AI🔥™️</h2>
+        <p id="auth-who" class="muted">Not signed in</p>
+        <label>Email</label>
+        <input id="auth-email" type="email" autocomplete="username" placeholder="you@domain.com" />
+        <div class="row">
+          <button type="button" id="auth-send">Email me a code</button>
+        </div>
+        <label>Resume code</label>
+        <input id="auth-code" inputmode="numeric" maxlength="6" placeholder="6 digits" autocomplete="one-time-code" />
+        <div class="row">
+          <button type="button" id="auth-go">Resume session</button>
+          <button type="button" id="auth-out" class="ghost">Log out</button>
+        </div>
+        <p id="auth-msg" class="muted"></p>
+        <h2>BYOK · your keys, your vendors</h2>
+        <p class="muted">Stored in this browser only. If a key is present, Generate is billed to your vendor, not our credits. No key = pay-as-you-go credits on Chamber compute.</p>
+        <label>xAI</label>
+        <input id="key" type="password" placeholder="xai-…" autocomplete="off" />
+        <label>OpenAI</label>
+        <input id="byok-openai" type="password" placeholder="sk-…" autocomplete="off" />
+        <label>Anthropic</label>
+        <input id="byok-anthropic" type="password" placeholder="sk-ant-…" autocomplete="off" />
+        <label>Google</label>
+        <input id="byok-google" type="password" placeholder="AIza…" autocomplete="off" />
+        <div class="row">
+          <button type="button" id="byok-save">Save keys in browser</button>
+          <button type="button" id="key-clear" class="ghost">Clear</button>
+        </div>
+        <p id="byok-msg" class="muted"></p>
+        <h2>Micro-pay</h2>
+        <p class="muted">$0.99 = 10 credits via Stripe. Sign in first. No fake wallet. No card on our servers. BYOK skips credits.</p>
+        <button type="button" id="pay-go">Buy 10 credits · $0.99</button>
+        <p id="pay-msg" class="muted"></p>
+        <p class="muted"><a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a> · <a href="/legal/aup.html">AUP</a> · <a href="/legal/license.html">License</a> · <a href="/legal/whitepaper.html">Whitepaper</a> · <a href="/legal/security.html">Security</a></p>
+      </div>
+    </div>
+
+    <script src="/kernel.js?v=18"></script>
+    <script src="/media-encode.js?v=18"></script>
+    <script src="/caps.js?v=18"></script>
+    <script src="/account.js?v=18"></script>
+    <script src="/chamber.js?v=18"></script>
+  </body>
+</html>

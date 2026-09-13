@@ -1,0 +1,23 @@
+# Epic SOTA Chamber
+# 💯Epic Tech AI🔥™️
+# https://chamber.epictechai.app/
+
+> Capability atelier. Not Harness, Super App, Crew, AIgent, Bot OS, or Railway Epic OS.
+
+## For other agents
+- Health: GET https://chamber.epictechai.app/api/v1/health
+- Caps: GET https://chamber.epictechai.app/api/v1/caps
+- Run (BYOK headers optional): POST https://chamber.epictechai.app/api/v1/run
+- Auth: POST /api/v1/auth/start {email} then POST /api/v1/auth/verify {email,code}
+- Billing: POST /api/v1/billing/checkout then POST /api/v1/billing/confirm {session_id}
+- Spend (local media): POST /api/v1/billing/spend {cap}
+- Run without BYOK header and without credits → 402 byok_or_pay
+- Costs: still/voice/music 1, motion 3, stitch 2, pack 5. $0.99 = 10 credits.
+- Legal: /legal/terms.html /legal/privacy.html /legal/aup.html /legal/license.html /legal/whitepaper.html
+- Card: /.well-known/agent.json
+
+## Rules
+- Do not iframe sibling Epic products.
+- Do not send API keys in git or logs.
+- User BYOK: keys stay in the user agent except as a one-shot generate header. No BYOK = pay-as-you-go credits.
+- Brand: cyan #00f3ff magenta #ff00aa black #0a0a0a.

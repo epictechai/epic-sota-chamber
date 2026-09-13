@@ -1,0 +1,13 @@
+{
+  "name": "Epic SOTA Chamber",
+  "short_name": "SOTA Chamber",
+  "description": "Standalone capability atelier. 💯Epic Tech AI🔥™️",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    { "src": "/icon.jpg", "sizes": "512x512", "type": "image/jpeg" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
