@@ -1,6 +1,6 @@
 {
   "name": "epic-sota-chamber",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "private": true,
   "description": "Epic SOTA Chamber — capability atelier for 💯Epic Tech AI🔥™️. Cloudflare Workers + Durable Objects + Workers AI.",
   "type": "module",
